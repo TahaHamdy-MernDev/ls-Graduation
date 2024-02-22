@@ -8,6 +8,7 @@ const RatingComponent = ({rate, size, initialRating, onRatingChange,edit}) => {
       count={5}
       size={size||19}
       edit={edit}
+      classNames="star-rating"
       isHalf={true} 
       value={initialRating}
       onChange={onRatingChange}

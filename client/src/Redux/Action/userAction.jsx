@@ -123,7 +123,7 @@ export const createProjectAction = createAsyncThunk(
 );
 export const getAllProjectAction = createAsyncThunk(
   "code/get-all",
-  async (data,{ rejectWithValue }) => {
+  async (data, { rejectWithValue }) => {
     try {
       const response = await Api.get("/code/get-all");
       console.log(response.data);
@@ -135,10 +135,23 @@ export const getAllProjectAction = createAsyncThunk(
 );
 export const deleteProjectAction = createAsyncThunk(
   "code/delete/:id",
-  async (id,{ rejectWithValue }) => {
+  async (id, { rejectWithValue }) => {
     try {
       const response = await Api.delete(`/code/delete/${id}`);
       console.log(response.data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const userSearchAction = createAsyncThunk(
+  "user/search",
+  async (data, { rejectWithValue }) => {
+    try {
+      console.log(data);
+      const response = await Api.post("/user/search", data);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

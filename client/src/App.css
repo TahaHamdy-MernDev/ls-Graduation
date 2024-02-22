@@ -1778,6 +1778,7 @@ table button:hover{
 }
 /*add course */
 .form-coursesadd{
+  padding: 1rem;
   margin-top: 50px;
   border:2px solid rgb(245, 183, 67);
   border-radius: 2%;

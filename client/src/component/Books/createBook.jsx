@@ -33,7 +33,7 @@ function CreateBook() {
     getInputProps: getInputBookFileProps,
   } = useDropzone({
     onDrop: onDropBookFile,
-    accept: ".pdf",
+    accept: { "pdf/*": [".pdf"] },
   });
 
   const onDropCoverImage = (acceptedFiles) => {
@@ -83,12 +83,12 @@ function CreateBook() {
       <Form className="form-coursesadd" onSubmit={handleSubmit(onSubmit)}>
         <Row className="mt-5">
           <Col lg={6} md={12} className="mb-4">
-            
-
             <Form.Group controlId="formTitle" className="mb-2">
-              <Form.Label className="label">{t("addBookForm.bookTitle")}</Form.Label>
+              <Form.Label className="label">
+                {t("addBookForm.bookTitle")}
+              </Form.Label>
               <Form.Control
-              id="text"
+                id="text"
                 type="text"
                 placeholder={t("addBookForm.enterBookTitle")}
                 name="title"
@@ -98,9 +98,11 @@ function CreateBook() {
             </Form.Group>
 
             <Form.Group controlId="formAuthor" className="mb-2">
-              <Form.Label className="label">{t("addBookForm.authorName")}</Form.Label>
+              <Form.Label className="label">
+                {t("addBookForm.authorName")}
+              </Form.Label>
               <Form.Control
-              id="text"
+                id="text"
                 type="text"
                 placeholder={t("addBookForm.enterAuthorName")}
                 name="author"
@@ -109,9 +111,11 @@ function CreateBook() {
               />
             </Form.Group>
             <Form.Group controlId="formAuthor" className="mb-2">
-              <Form.Label className="label">{t("addBookForm.bookRating")}</Form.Label>
+              <Form.Label className="label">
+                {t("addBookForm.bookRating")}
+              </Form.Label>
               <Form.Control
-              id="text"
+                id="text"
                 type="number"
                 min={0}
                 max={5}
@@ -122,9 +126,11 @@ function CreateBook() {
               />
             </Form.Group>
             <Form.Group controlId="formCategory" className="mb-2">
-              <Form.Label className="label">{t("addBookForm.bookCategory")}</Form.Label>
+              <Form.Label className="label">
+                {t("addBookForm.bookCategory")}
+              </Form.Label>
               <Form.Control
-              id='text'
+                id="text"
                 as="select"
                 name="category"
                 {...register("category", { required: true })}
@@ -143,9 +149,11 @@ function CreateBook() {
               </Form.Control>
             </Form.Group>
             <Form.Group controlId="formDescription" className="mb-2">
-              <Form.Label className="label">{t("addBookForm.bookDescription")}</Form.Label>
+              <Form.Label className="label">
+                {t("addBookForm.bookDescription")}
+              </Form.Label>
               <Form.Control
-              id="text"
+                id="text"
                 as="textarea"
                 rows={4}
                 placeholder={t("addBookForm.enterBookDescription")}
@@ -160,17 +168,15 @@ function CreateBook() {
 
           <Col lg={6} md={12}>
             <Form.Group controlId="formBookFile" className="mb-4">
-              <Form.Label className="label">{t("addBookForm.bookFile")}</Form.Label>
+              <Form.Label className="label">
+                {t("addBookForm.bookFile")}
+              </Form.Label>
 
               <div
                 {...getRootBookFileProps()}
                 className="dropzone border rounded p-3 cursor-pointer"
               >
-                <input
-                  {...getInputBookFileProps()}
-                  type="file"
-                  accept="application/pdf"
-                />
+                <input {...getInputBookFileProps()} accept=".pdf" />
                 {bookFile ? (
                   <>
                     <Image
@@ -203,7 +209,9 @@ function CreateBook() {
             </Form.Group>
 
             <Form.Group controlId="formCoverImage" className="mb-4">
-              <Form.Label className="label">{t("addBookForm.coverImage")}</Form.Label>
+              <Form.Label className="label">
+                {t("addBookForm.coverImage")}
+              </Form.Label>
               <div
                 {...getRootCoverImageProps()}
                 className="dropzone border rounded p-3 cursor-pointer"

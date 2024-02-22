@@ -12,6 +12,7 @@ import {
   toggleCourseToWishlistAction,
   updateUserProfileAction,
   userProfileAction,
+  userSearchAction,
 } from "../Action/userAction";
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -20,15 +21,16 @@ const userSlice = createSlice({
   initialState: {
     currentUser: null,
     users: [],
-    suggestions:[],
+    suggestions: [],
+    searchResult: [],
     getUser: null,
     followUserLoading: false,
     createProjectLoading: false,
-    projects :[],
+    projects: [],
     loading: false,
     error: null,
     success: true,
-    deleteProjectLoading:false,
+    deleteProjectLoading: false,
     isAuthenticated: false,
   },
   reducers: {},
@@ -140,15 +142,23 @@ const userSlice = createSlice({
         state.deleteProjectLoading = false;
         state.success = true;
       })
+      .addCase(userSearchAction.pending, (state, { payload }) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(userSearchAction.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.success = true;
+        state.searchResult = payload.data;
+      })
       .addMatcher(
         (action) => action.type.endsWith("/rejected"),
         (state, { payload }) => {
-      
           state.loading = false;
-          state.followUserLoading=false
-          state.createProjectLoading=false 
-          state.deleteProjectLoading = false
-             let error = payload?.message;
+          state.followUserLoading = false;
+          state.createProjectLoading = false;
+          state.deleteProjectLoading = false;
+          let error = payload?.message;
           if (error) {
             if (Array.isArray(error)) {
               error.forEach((err) => toast.error(err.message));

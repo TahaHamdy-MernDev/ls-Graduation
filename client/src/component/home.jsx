@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Container, Row, Col, Nav } from "react-bootstrap";
 import { BsArrowDownCircle } from "react-icons/bs";
 
@@ -20,13 +20,11 @@ import Logo16 from "../images/y5.jpg";
 import Logo17 from "../images/y6.jpg";
 import Logo18 from "../images/back2.jpg";
 
-
-import Logo19 from '../images/team1.jpg';
-import Logo20 from '../images/team2.jpg';
-import Logo21 from '../images/team3.jpg';
-import Logo22 from '../images/team4.jpg';
-import Logo23 from '../images/Screenshot\ 2023-12-04\ 180258.png';
-
+import Logo19 from "../images/team1.jpg";
+import Logo20 from "../images/team2.jpg";
+import Logo21 from "../images/team3.jpg";
+import Logo22 from "../images/team4.jpg";
+import Logo23 from "../images/Screenshot 2023-12-04 180258.png";
 
 import Logo15 from "../images/Screenshot 2023-12-04 180258.png";
 import { useSelector } from "react-redux";
@@ -45,10 +43,11 @@ import { FaUserCheck } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa6";
+import { IoIosSearch } from "react-icons/io";
 function Home() {
   const { register, handleSubmit, watch } = useForm();
   const { courses } = useSelector((state) => state.course);
-  const {currentUser } =useSelector(state => state.user);
+  const { currentUser } = useSelector((state) => state.user);
   const { books } = useSelector((state) => state.book);
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -59,220 +58,309 @@ function Home() {
     dispatch(getAllBookAction());
     dispatch(getAllCategoriesAction());
   }, [dispatch]);
-  const onSubmit = (data) => {
-    if (
-      data.selectedCategory !== (undefined || " ") &&
-      data.category !== (undefined || " ")
-    ) {
-      navigate(
-        `/search-results?category=${data.category}&selectedCategory=${data.selectedCategory}`
-      );
+  // const onSubmit = (data) => {
+  //   if (
+  //     data.selectedCategory !== (undefined || " ") &&
+  //     data.category !== (undefined || " ")
+  //   ) {
+  //     navigate(
+  //       `/search-results?category=${data.category}&selectedCategory=${data.selectedCategory}`
+  //     );
+  //   }
+  // };
+  // const inputStyles = {
+  //   outline: "none",
+  //   border: "1px solid rgb(0, 174, 255)",
+  //   width: "200px",
+  //   height: "40px",
+  //   borderRadius: "30px",
+  //   paddingRight: "35px",
+  // };
+  // const selectedCategory = watch("category");
+  // const categories =
+  //   selectedCategory === "course"
+  //     ? Array.from(
+  //         new Set(
+  //           courses ? courses.map((course) => course.category.categoryName) : []
+  //         )
+  //       )
+  //     : selectedCategory === "book"
+  //     ? Array.from(
+  //         new Set(books ? books.map((book) => book.category.categoryName) : [])
+  //       )
+  //     : [];
+  const [selectedOption, setSelectedOption] = useState("");
+
+  // Function to handle option change
+  const handleOptionChange = (e) => {
+    setSelectedOption(e.target.value);
+  };
+
+  // Function to get the display text based on the selected option
+  const getDisplayText = () => {
+    switch (selectedOption) {
+      case "books":
+        return "كتب";
+      case "courses":
+        return "الدورات";
+      default:
+        return "اختر"; // Default text
     }
   };
-  const inputStyles = {
-    outline: "none",
-    border: "1px solid rgb(0, 174, 255)",
-    width: "200px",
-    height: "40px",
-    borderRadius: "30px",
-    paddingRight: "35px",
+  const onSubmit = (data) => {
+    const option = getDisplayText();
+    if (option === "اختر") {
+      return;
+    }
+    console.log(data);
+   navigate(`/search-results?in=${selectedOption}&search=${data.search}`);
   };
-  const selectedCategory = watch("category");
-  const categories =
-    selectedCategory === "course"
-      ? Array.from(
-          new Set(
-            courses ? courses.map((course) => course.category.categoryName) : []
-          )
-        )
-      : selectedCategory === "book"
-      ? Array.from(
-          new Set(books ? books.map((book) => book.category.categoryName) : [])
-        )
-      : [];
-     
- 
- 
   return (
     <section className="home-sec">
-    <div className="container-home">
-      <Container>
-        <Row className="align-items-center">
-          <Col lg={12} md={12} sm={12}>
-            <div className="home">
-              <h2 className="home__title">أهلا بك في منصة <br />أبواب البرمجية</h2>
-            
-             {!currentUser && (<>
-               <p> للاستماتاع بخدمات ابواب البرمجية تفضل بالدخول للمنصة </p>
-                <Nav className="my-6">
-                <Nav.Link id="button1" href="/login">
-                  تسجيل الدخول
-                </Nav.Link>
-                <Nav.Link id="button2" href="/register">
-                  حساب جديد
-                </Nav.Link>
-              </Nav>
-             </>
-              
-             ) 
-
-             }
-            
-            </div>
-            <Row className="justify-content-center mt-4">
-              <Col md={12} sm={12}>
-                <div className="content">
-                  <a href="#">
-                    <FaFacebook className="icon-content" />
-                  </a>
-                  <a href="#">
-                    <FaInstagram className="icon-content" />
-                  </a>
-                  <a href="#">
-                    <FaLinkedin className="icon-content" />
-                  </a>
+      <div className="container-home">
+        <Container>
+          <Row className="align-items-center">
+            <Col lg={12} md={12} sm={12}>
+              <div className="home">
+                <h2 className="home__title">
+                  أهلا بك في منصة <br />
+                  أبواب البرمجية
+                </h2>
+                <div id="elSearchWrapper">
+                  <div
+                    id="elSearch"
+                    data-controller="core.front.core.quickSearch"
+                  >
+                    <form
+                      onSubmit={handleSubmit(onSubmit)}
+                      acceptCharset="utf-8"
+                    >
+                      <input
+                        type="search"
+                        id="elSearchField"
+                        placeholder="بحث..."
+                        name="q"
+                        autoComplete="off"
+                        aria-label="بحث"
+                        {...register("search", { required: true })}
+                      />
+                      <details className="cSearchFilter">
+                        <summary className="cSearchFilter__text">
+                          {getDisplayText()}
+                        </summary>
+                        <ul className="cSearchFilter__menu">
+                          <li>
+                            <label>
+                              <input
+                                type="radio"
+                                name="type"
+                                value="books"
+                                onChange={handleOptionChange}
+                              />
+                              <span className="cSearchFilter__menuText">
+                                كتب
+                              </span>
+                            </label>
+                          </li>
+                          <li>
+                            <label>
+                              <input
+                                type="radio"
+                                name="type"
+                                value="courses"
+                                onChange={handleOptionChange}
+                              />
+                              <span className="cSearchFilter__menuText">
+                                الدورات
+                              </span>
+                            </label>
+                          </li>
+                        </ul>
+                      </details>
+                      <button
+                        className="cSearchSubmit"
+                        type="submit"
+                        aria-label="بحث"
+                      >
+                        <IoIosSearch />
+                      </button>
+                    </form>
+                  </div>
                 </div>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      </Container>
-    </div>
 
-    <Row className="justify-content-center">
-      <Col md={12} sm={12}>
-        <div className="home-about">
-          <div className="about">
-            <h4>نبذة عنا</h4>
-            <p>
-              توفر منصة ابواب البرمجية التعليم والتدريب عبر الانترنت كما توفر
-              بيىة افتراضية للتعليم والتدريب تتميز بعدة مزايا منها المرونه
-              الزمنية والمكانية التي تساعد الطالب بالدراسة ةالتدريب بسهولة
-              توفر منصتنا العديد من الكتب والكورسات التي تستطيع الاستفادة من
-              خلالها املين ان تنال اعجابكم
-            </p>
-          </div>
+                {!currentUser && (
+                  <>
+                    <p>
+                      {" "}
+                      للاستماتاع بخدمات ابواب البرمجية تفضل بالدخول للمنصة{" "}
+                    </p>
+                    <Nav className="my-6">
+                      <Nav.Link id="button1" href="/login">
+                        تسجيل الدخول
+                      </Nav.Link>
+                      <Nav.Link id="button2" href="/register">
+                        حساب جديد
+                      </Nav.Link>
+                    </Nav>
+                  </>
+                )}
+              </div>
+              <Row className="justify-content-center mt-4">
+                <Col md={12} sm={12}>
+                  <div className="content">
+                    <a href="#">
+                      <FaFacebook className="icon-content" />
+                    </a>
+                    <a href="#">
+                      <FaInstagram className="icon-content" />
+                    </a>
+                    <a href="#">
+                      <FaLinkedin className="icon-content" />
+                    </a>
+                  </div>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Container>
+      </div>
 
-          <div className="about-img">
-            <img src={Logo19} alt="logo" />
-          </div>
-        </div>
-      </Col>
-    </Row>
+      <Row className="justify-content-center">
+        <Col md={12} sm={12}>
+          <div className="home-about">
+            <div className="about">
+              <h4>نبذة عنا</h4>
+              <p>
+                توفر منصة ابواب البرمجية التعليم والتدريب عبر الانترنت كما توفر
+                بيىة افتراضية للتعليم والتدريب تتميز بعدة مزايا منها المرونه
+                الزمنية والمكانية التي تساعد الطالب بالدراسة ةالتدريب بسهولة
+                توفر منصتنا العديد من الكتب والكورسات التي تستطيع الاستفادة من
+                خلالها املين ان تنال اعجابكم
+              </p>
+            </div>
 
-    <Row className="justify-content-center">
-      <Col lg={12} md={12} sm={12}>
-      <div className="hero with-image">
-        <div className="container main-container">
-          <div className="row">
-            <div className="col-lg-8 m-auto">
-              <h1 className="hero-title">تعلم البرمجة من الصفر حتى الاحتراف</h1>
-              <h2 className="hero-secondary-title">
-                توفر لك منصة أبواب البرمجية محتوى عربي شامل ومتنوع لنساعدك في تعلم
-                البرمجة بكل احترافية وسهولة
-              </h2>
-              <Link to="courses" className="btn btn-primary btn-lg mt-3">
-                تعلم البرمجة الآن
-              </Link>
+            <div className="about-img">
+              <img src={Logo19} alt="logo" />
             </div>
           </div>
-        </div>
-      </div>
-        {/* <div className="card-home">
+        </Col>
+      </Row>
+
+      <Row className="justify-content-center">
+        <Col lg={12} md={12} sm={12}>
+          <div className="hero with-image">
+            <div className="container main-container">
+              <div className="row">
+                <div className="col-lg-8 m-auto">
+                  <h1 className="hero-title">
+                    تعلم البرمجة من الصفر حتى الاحتراف
+                  </h1>
+                  <h2 className="hero-secondary-title">
+                    توفر لك منصة أبواب البرمجية محتوى عربي شامل ومتنوع لنساعدك
+                    في تعلم البرمجة بكل احترافية وسهولة
+                  </h2>
+                  <Link to="courses" className="btn btn-primary btn-lg mt-3">
+                    تعلم البرمجة الآن
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* <div className="card-home">
           <img src={Logo23} alt="Logo"/>
            </div> */}
-      </Col>
-    </Row>
-    <Row className="justify-content-center">
-      <Col md={6} sm={12}>
-        <h2 className="title-fea">المميزات</h2>
-        <div className="featurs">
-          <div className="card">
-            <FaDownload className="icon" />
-            <h6> تحميل الكتب</h6>
-            <span>
-              {" "}
-              تستطيع من خلال منصتنا ان تقوم بتحميل الكتب والكورسات{" "}
-            </span>
-          </div>
+        </Col>
+      </Row>
+      <Row className="justify-content-center">
+        <Col md={6} sm={12}>
+          <h2 className="title-fea">المميزات</h2>
+          <div className="featurs">
+            <div className="card">
+              <FaDownload className="icon" />
+              <h6> تحميل الكتب</h6>
+              <span>
+                {" "}
+                تستطيع من خلال منصتنا ان تقوم بتحميل الكتب والكورسات{" "}
+              </span>
+            </div>
 
-          <div className="card">
-            <FaBookOpenReader className="icon" />
-            <h6>دورات</h6>
-            <span>
-              تقدم منصتنا العديد من الدورات المتعلقة بالبرمجة بمكنك الاستفاده
-              منها
-            </span>
+            <div className="card">
+              <FaBookOpenReader className="icon" />
+              <h6>دورات</h6>
+              <span>
+                تقدم منصتنا العديد من الدورات المتعلقة بالبرمجة بمكنك الاستفاده
+                منها
+              </span>
+            </div>
+            <div className="card">
+              <FaCircleQuestion className="icon" />
+              <h6>اسئلة واجوبة</h6>
+              <span>تتيح المنصه الامكانيه لطؤح الاسئلة والاجابة عليها </span>
+            </div>
           </div>
-          <div className="card">
-            <FaCircleQuestion className="icon" />
-            <h6>اسئلة واجوبة</h6>
-            <span>تتيح المنصه الامكانيه لطؤح الاسئلة والاجابة عليها </span>
-          </div>
-        </div>
-      </Col>
-    </Row>
-    <Row className="justify-content-center">
-      <Col lg={12} md={12} sm={12}>
-        <div className="num">
-          <div className="num-content">
-            <FaUserCheck className="icon" />
-            <p>عدد المستخدمين</p>
-            <p>135.24</p>
-          </div>
+        </Col>
+      </Row>
+      <Row className="justify-content-center">
+        <Col lg={12} md={12} sm={12}>
+          <div className="num">
+            <div className="num-content">
+              <FaUserCheck className="icon" />
+              <p>عدد المستخدمين</p>
+              <p>135.24</p>
+            </div>
 
-          <div className="num-content">
-            <FaDownload className="icon" />
-            <p>عدد التحميلات</p>
-            <p>543.24</p>
-          </div>
+            <div className="num-content">
+              <FaDownload className="icon" />
+              <p>عدد التحميلات</p>
+              <p>543.24</p>
+            </div>
 
-          <div className="num-content">
-            <FaBookOpenReader className="icon" />
-            <p>عدد الكتب</p>
-            <p>3435.24</p>
+            <div className="num-content">
+              <FaBookOpenReader className="icon" />
+              <p>عدد الكتب</p>
+              <p>3435.24</p>
+            </div>
           </div>
-        </div>
-      </Col>
-    </Row>
-    <Row className="justify-content-center">
-      <Col md={12} sm={12}>
-        <div className="ourteam">
-          <div>
-            <h2>فريقنا الاكاديمي</h2>
-            <p>
-              يوجد في منصتنا فريق مكون من كفأ المدرسين والمدربين على درجة
-              عالية من المعرفة والعلم
-            </p>
+        </Col>
+      </Row>
+      <Row className="justify-content-center">
+        <Col md={12} sm={12}>
+          <div className="ourteam">
+            <div>
+              <h2>فريقنا الاكاديمي</h2>
+              <p>
+                يوجد في منصتنا فريق مكون من كفأ المدرسين والمدربين على درجة
+                عالية من المعرفة والعلم
+              </p>
+            </div>
+            <div className="team">
+              <img src={Logo20}></img>
+              <h4> أحمد ابوالرب</h4>
+              <p>
+                مهندس علم حاسوب من جامعة البلقاء التطبيقية يدرس مادة علم حاسب
+                الي
+              </p>
+            </div>
+            <div className="team">
+              <img src={Logo21}></img>
+              <h4> أحمد ابوالرب</h4>
+              <p>
+                مهندس علم حاسوب من جامعة البلقاء التطبيقية يدرس مادة علم حاسب
+                الي
+              </p>
+            </div>
+            <div className="team">
+              <img src={Logo22}></img>
+              <h4> أحمد ابوالرب</h4>
+              <p>
+                مهندس علم حاسوب من جامعة البلقاء التطبيقية يدرس مادة علم حاسب
+                الي
+              </p>
+            </div>
           </div>
-          <div className="team">
-            <img src={Logo20}></img>
-            <h4> أحمد ابوالرب</h4>
-            <p>
-              مهندس علم حاسوب من جامعة البلقاء التطبيقية يدرس مادة علم حاسب
-              الي
-            </p>
-          </div>
-          <div className="team">
-            <img src={Logo21}></img>
-            <h4> أحمد ابوالرب</h4>
-            <p>
-              مهندس علم حاسوب من جامعة البلقاء التطبيقية يدرس مادة علم حاسب
-              الي
-            </p>
-          </div>
-          <div className="team">
-            <img src={Logo22}></img>
-            <h4> أحمد ابوالرب</h4>
-            <p>
-              مهندس علم حاسوب من جامعة البلقاء التطبيقية يدرس مادة علم حاسب
-              الي
-            </p>
-          </div>
-        </div>
-      </Col>
-    </Row>
-  </section>
+        </Col>
+      </Row>
+    </section>
   );
 }
 export default Home;

@@ -1,5 +1,19 @@
 {
   "downloadBook": "تحميل الكتاب",
+  "search": {
+    "siteSearch": "البحث في الموقع",
+    "searchResultsFor": "نتائج البحث عن",
+    "resultsFound": "تم العثور على نتائج",
+    "noBooksToPreview": "لا توجد كتب للمعاينة",
+    "by": "بواسطة",
+    "reviews": "مراجعات",
+    "author": "المؤلف",
+    "level": "المستوى",
+    "books": "كتب",
+    "courses": "الدورات",
+    "choose": "اختر",
+    "in":"فى"
+  },
   "homePage": {
     "searchFor": "تبحث عن",
     "selectPlaceholder": "اضغط للاختيار",
@@ -17,12 +31,16 @@
     "releaseDate": "تاريخ الاصدار",
     "mostInteractive": "الاكثر تفاعلا",
     "books": "الكتب",
-    "mostDownloaded": "الاكثر تنزيلا"
+    "mostDownloaded": "الاكثر تنزيلا",
+    "sort_by_date": "التاريخ",
+    "sort_by_downloads": "التحميلات",
+    "sort_by_review_count": "عدد المراجعات",
+    "sort_by_average_rating": "التقييم"
   },
-  "projectpreview":{
-    "addnewproject":"اضف مشروعك",
-    "showcode" :"اظهر الكود",
-    "add code to show it":"اضف الكود هنا لعرضه"
+  "projectpreview": {
+    "addnewproject": "اضف مشروعك",
+    "showcode": "اظهر الكود",
+    "add code to show it": "اضف الكود هنا لعرضه"
   },
   "programmingQuestionsPage": {
     "pageTitle": "أسئلة البرمجة",
@@ -51,9 +69,9 @@
     "login": "تسجيل الدخول",
     "register": "حساب جديد",
     "logout": "تسجيل الخروج",
-    "profile":"الملف الشخصي",
-    "project":"المشروع",
-    "admin":"الادمن"
+    "profile": "الملف الشخصي",
+    "project": "المشروع",
+    "admin": "الادمن"
   },
   "loginPage": {
     "loginTitle": "تسجيل الدخول",
@@ -234,20 +252,19 @@
     "yourRate": "تقيمك"
   },
   "Suggest": {
-    "visit":"زياره",
-    "ManageSuggestedCourses" :"إدارة الدورات المقترحة",
-    "ManageSuggestedBooks" :"إدارة الكتب المقترحة",
-    "accept":"موافقه",
-    "reject":"رفض",
-    "showSuggestions":" عرض الاقتراحات",
-    "show":" عرض",
+    "visit": "زياره",
+    "ManageSuggestedCourses": "إدارة الدورات المقترحة",
+    "ManageSuggestedBooks": "إدارة الكتب المقترحة",
+    "accept": "موافقه",
+    "reject": "رفض",
+    "showSuggestions": " عرض الاقتراحات",
+    "show": " عرض",
     "choose": "اختر",
     "book": "كتاب",
     "course": "دورة",
     "suggestBook": "اقترح كتاب",
     "suggestCourse": "اقترح دورة"
   },
-
   "timeAgo": {
     "now": "الآن",
     "minutesAgo": "{{count}} دقيقة مضت",
@@ -257,8 +274,8 @@
     "yearsAgo": "{{count}} سنة مضت"
   },
   "questionSection": {
-    "any your question?":"؟ هل لديك اسئلة",
-    "join here":"انضم هنا",
+    "any your question?": "؟ هل لديك اسئلة",
+    "join here": "انضم هنا",
     "question": "السؤال",
     "answers": "اجابات القراء",
     "noAnswers": "لا توجد اجابات حاليًا.",

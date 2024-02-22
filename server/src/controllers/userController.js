@@ -139,3 +139,31 @@ exports.toggleFollowUser = asyncHandler(async (req, res) => {
         res.success({ message: "User followed successfully" });
     }
 });
+exports.userSearch = asyncHandler(async (req, res) => {
+    const { searchText, searchIn } = req.body
+    if (searchIn === "books") {
+        const books = await dbService.findMany(Book, {
+            $or: [
+                { title: { $regex: searchText, $options: 'i' } },
+                { description: { $regex: searchText, $options: 'i' } },
+                { author: { $regex: searchText, $options: 'i' } }
+            ]
+        })
+
+        console.log(books);
+        return res.success({ data: books })
+
+    }
+
+    const courses = await dbService.findMany(Course, {
+        $or: [
+            { name: { $regex: searchText, $options: 'i' } },
+            { description: { $regex: searchText, $options: 'i' } },
+            { instructor: { $regex: searchText, $options: 'i' } },
+            { whatUWillLearn: { $regex: searchText, $options: 'i' } }
+        ]
+    })
+    console.log(courses);
+    return res.success({ data: courses })
+
+})

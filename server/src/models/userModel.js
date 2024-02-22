@@ -14,7 +14,7 @@ const userSchema = new Schema(
       googleId: { type: String },
     },
     role: { type: String, enum: ["Admin", "User"], default: "User" },
-    profileImage: {
+    profileImage: { 
       type: Object,
       default: {
         url: "https://res.cloudinary.com/dfjnpfcqz/image/upload/v1708464934/avatar_zjpvvz.png",
@@ -22,7 +22,7 @@ const userSchema = new Schema(
       },
     },
     bookWishlist: [{ type: Schema.Types.ObjectId, ref: 'Book' }],
-    courseWishlist: [{ type: Schema.Types.ObjectId, ref: 'Course' }],
+    courseWishlist: [{ type: Schema.Types.ObjectId, ref: 'Course' }], 
     followers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     following: [{ type: Schema.Types.ObjectId, ref :'User' }], 
     skills: [{ type: String }],

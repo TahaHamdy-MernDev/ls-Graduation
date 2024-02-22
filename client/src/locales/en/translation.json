@@ -1,5 +1,19 @@
 {
   "downloadBook": "Download Book",
+  "search": {
+    "siteSearch": "Site Search",
+    "searchResultsFor": "Search results for",
+    "resultsFound": "results found",
+    "noBooksToPreview": "No books to preview",
+    "by": "by",
+    "reviews": "reviews",
+    "author": "Author",
+    "level": "Level",
+    "books": "Books",
+    "in":"in",
+    "courses": "Courses",
+    "choose": "Choose"
+  },
   "homePage": {
     "searchFor": "Search for",
     "selectPlaceholder": "Select an option",
@@ -17,7 +31,11 @@
     "releaseDate": "Release Date",
     "mostInteractive": "Most Interactive",
     "books": "Books",
-    "mostDownloaded": "Most Downloaded"
+    "mostDownloaded": "Most Downloaded",
+    "sort_by_date": "Date",
+    "sort_by_downloads": "Downloads",
+    "sort_by_review_count": "Most Review",
+    "sort_by_average_rating": "Rating"
   },
   "programmingQuestionsPage": {
     "pageTitle": "Programming Questions",
